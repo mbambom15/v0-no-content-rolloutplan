@@ -17,6 +17,9 @@ import { Switch } from "@/components/ui/switch"
 import { cn } from "@/lib/utils"
 import type { RolloutPlan } from "@/app/page"
 
+// API base URL - use environment variable for local dev, or /api for production (Vercel)
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "/api"
+
 const formSchema = z.object({
   qualification_name: z.string().min(1, "Qualification name is required"),
   cohort_name: z.string().min(1, "Cohort name is required"),
@@ -52,7 +55,7 @@ export function RolloutPlanForm({ onPlanGenerated, isLoading, setIsLoading }: Ro
   async function onSubmit(values: FormValues) {
     setIsLoading(true)
     try {
-      const response = await fetch("/api/generate", {
+      const response = await fetch(`${API_BASE}/generate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -80,7 +83,7 @@ export function RolloutPlanForm({ onPlanGenerated, isLoading, setIsLoading }: Ro
     if (!generatedPlan) return
     
     const values = form.getValues()
-    const response = await fetch("/api/export/excel", {
+    const response = await fetch(`${API_BASE}/export/excel`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -107,7 +110,7 @@ export function RolloutPlanForm({ onPlanGenerated, isLoading, setIsLoading }: Ro
     if (!generatedPlan) return
     
     const values = form.getValues()
-    const response = await fetch("/api/export/pdf", {
+    const response = await fetch(`${API_BASE}/export/pdf`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
