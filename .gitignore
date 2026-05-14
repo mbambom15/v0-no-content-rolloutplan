@@ -13,3 +13,24 @@ __v0_jsx-dev-runtime.ts
 node_modules
 .next/
 .DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+*.egg
+.venv/
+venv/
+build/
+dist/
+
+# Logs
+*.log
+
+# IDE
+.idea/
+.vscode/
